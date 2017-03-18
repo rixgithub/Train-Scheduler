@@ -18,3 +18,7 @@
 	background-color: blue;
 	color: white;
 }
+
+.btn:hover {
+	color: #70a5f9;
+}

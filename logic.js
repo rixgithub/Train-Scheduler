@@ -28,6 +28,7 @@ $(document).ready(function() {
     var minUntilTrain = "";
     var nextTrain = "";
     var nextTrainFormatted = "";
+    var getKey = "";
 
     // Functions ***************
 
@@ -43,7 +44,7 @@ $(document).ready(function() {
     	timeApart = timeDifference % frequency;
     	minUntilTrain = frequency - timeApart;
     	nextTrain = moment(currentTime, "HH:MM").add(minUntilTrain, "minutes");
-    	nextTrainFormatted = moment(nextTrain).format("hh:mm");
+    	nextTrainFormatted = moment(nextTrain).format("h:mm A");
 
     	$("input:text").val("");
 
@@ -59,9 +60,15 @@ $(document).ready(function() {
     });
 
     database.ref().on("child_added", function(snapshot) {
-    	
+    	console.log(snapshot.key);
     	$(".table").find('tbody')
-			.append("<tr><td>" + snapshot.val().trainName + "</td><td>" + snapshot.val().destination + "</td><td>" + snapshot.val().frequency + "</td><td>" + snapshot.val().nextTrainFormatted + "</td><td>" + snapshot.val().minUntilTrain + "</td></tr>")
+			.append("<tr id=" + snapshot.key + "><td>" + snapshot.val().trainName + "</td><td>" + snapshot.val().destination + "</td><td>" + snapshot.val().frequency + "</td><td>" + snapshot.val().nextTrainFormatted + "</td><td>" + snapshot.val().minUntilTrain + "</td><td><button class='btn btn-defaut remove'>Remove Train</button></td></tr>")
     });
+
+    $(document.body).on("click", ".remove", function() {
+    	$(this).closest("tr").remove();
+    	getKey = $(this).parent().parent().attr("id");
+       	database.ref(getKey).remove();
+    })
 
 });
