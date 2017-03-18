@@ -16,10 +16,18 @@ $(document).ready(function() {
   	database = firebase.database();
 
   	// Variables  ************
-    
-    var nextArrival = 1235;
-    var minutesAway = 30;
 
+    var trainName = "";
+    var destination = "";
+    var firstTrain = "";
+    var frequency = "";
+    var currentTime = "";
+    var firstTrainConverted = "";
+    var timeDifference = "";
+    var timeApart = "";
+    var minUntilTrain = "";
+    var nextTrain = "";
+    var nextTrainFormatted = "";
 
     // Functions ***************
 
@@ -27,29 +35,33 @@ $(document).ready(function() {
     	event.preventDefault();
     	var trainName = $("#trainNameInput").val().trim();
     	var destination = $("#destinationInput").val().trim();
-    	var firstTrainTime = $("#firstTrainInput").val().trim();
+    	var firstTrain = $("#firstTrainInput").val().trim();
     	var frequency = $("#frequencyInput").val().trim();
+    	currentTime = moment();
+    	firstTrainConverted = moment(firstTrain, "HH:mm").subtract(1, "years");
+    	timeDifference = moment(currentTime).diff(moment(firstTrainConverted), "minutes");
+    	timeApart = timeDifference % frequency;
+    	minUntilTrain = frequency - timeApart;
+    	nextTrain = moment(currentTime, "HH:MM").add(minUntilTrain, "minutes");
+    	nextTrainFormatted = moment(nextTrain).format("hh:mm");
 
     	$("input:text").val("");
 
     	database.ref().push({
     		trainName: trainName,
     		destination: destination,
-    		firstTrainTime: firstTrainTime,
-    		frequency: frequency
+    		firstTrain: firstTrain,
+    		frequency: frequency,
+    		nextTrainFormatted: nextTrainFormatted,
+    		minUntilTrain: minUntilTrain,
+    	 	dateAdded: firebase.database.ServerValue.TIMESTAMP
     	});
     });
 
     database.ref().on("child_added", function(snapshot) {
+    	
     	$(".table").find('tbody')
-	    		.append("<tr><td>" + snapshot.val().trainName + "</td><td>" + snapshot.val().destination + "</td><td>" + snapshot.val().frequency + "</td><td>" + nextArrival + "</td><td>" + minutesAway + "</td></tr>")
-	    	 		// .append("<td>" + snapshot.val().destination + "</td>")
-	    				// .append("<td>" + snapshot.val().frequency + "</td>")
-	    				// 	.append("<td>" + nextArrival + "</td>")
-	    				// 		.append("<td>" + minutesAway + "</td></tr>")
-	    							
-
+			.append("<tr><td>" + snapshot.val().trainName + "</td><td>" + snapshot.val().destination + "</td><td>" + snapshot.val().frequency + "</td><td>" + snapshot.val().nextTrainFormatted + "</td><td>" + snapshot.val().minUntilTrain + "</td></tr>")
     });
-
 
 });
