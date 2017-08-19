@@ -1,24 +1,61 @@
+body {
+	background-image: url('./Images/trains.jpg');
+	   /* Center and scale the image nicely */
+	background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 0;
+       /*---------------------------------*/
+    color: white;
+}
+
 .jumbotron {
-	background-color: #873901;
+	background:rgba(0,0,0,0.5);
 	color: white;
 }
 
+.jumbotron h1 {
+	font-family: 'Faster One', cursive;
+	font-size: 100px;
+	color: #ff7302;
+}
+
+.jumbotron p {
+	font-size: 40px;
+}
 
 .panel > .panel-heading {
-	background-color: blue;
+	background:rgba(0,0,0,0.5);
 	color: white;
-	border-color: blue;
+	font-size: 30px
 }
 
 .panel {
-	border-color: blue;
+	background: rgba(0,0,0,0.5);
+	border-color: rgba(0,0,0,0.5);
+}
+
+th {
+	color: orange;
+	font-size: 20px
+}
+
+label {
+	font-size: 20px
+}
+
+.form-control {
+	background: rgba(0,0,0,0.5);
+	color: white;
 }
 
 .btn {
 	background-color: blue;
+	opacity: 0.75;
 	color: white;
 }
 
 .btn:hover {
 	color: #70a5f9;
+	opacity: 0.75;
 }

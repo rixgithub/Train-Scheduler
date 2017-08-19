@@ -62,7 +62,7 @@ $(document).ready(function() {
     database.ref().on("child_added", function(snapshot) {
     	console.log(snapshot.key);
     	$(".table").find('tbody')
-			.append("<tr id=" + snapshot.key + "><td>" + snapshot.val().trainName + "</td><td>" + snapshot.val().destination + "</td><td>" + snapshot.val().frequency + "</td><td>" + snapshot.val().nextTrainFormatted + "</td><td>" + snapshot.val().minUntilTrain + "</td><td><button class='btn btn-defaut remove'>Remove Train</button></td></tr>")
+			.append("<tr id=" + snapshot.key + "><td>" + snapshot.val().trainName + "</td><td>" + snapshot.val().destination + "</td><td>" + snapshot.val().frequency + "</td><td>" + snapshot.val().nextTrainFormatted + "</td><td>" + snapshot.val().minUntilTrain + "</td><td><button class='btn btn-default remove'>Delete</button></td></tr>")
     });
 
     $(document.body).on("click", ".remove", function() {
