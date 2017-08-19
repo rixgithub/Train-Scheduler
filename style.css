@@ -49,13 +49,8 @@ label {
 	color: white;
 }
 
-#addTrainRow {
+#addFormHeading {
 	text-align: center;
-}
-
-#addTrainForm {
-	text-align: center;
-	max-width: 500px;
 }
 
 .btn {
